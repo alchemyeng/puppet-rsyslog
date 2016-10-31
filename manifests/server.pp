@@ -58,6 +58,7 @@ class rsyslog::server (
   $actionfiletemplate        = false,
   $rotate                    = undef,
   $server_conf               = $rsyslog::params::server_conf,
+  $do_locals                 = false,
 ) inherits rsyslog::params {
   include ::rsyslog
 

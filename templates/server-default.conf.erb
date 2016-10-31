@@ -19,6 +19,16 @@ $Template dynUserLog,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%sou
 $Template dynMailLog,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%source:R,ERE,1,DFLT:([A-Za-z-]*)--end%<%= scope.lookupvar('rsyslog::server::logpath') -%>mail.log"
 $Template dynDebug,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%source:R,ERE,1,DFLT:([A-Za-z-]*)--end%<%= scope.lookupvar('rsyslog::server::logpath') -%>debug"
 $Template dynMessages,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%source:R,ERE,1,DFLT:([A-Za-z-]*)--end%<%= scope.lookupvar('rsyslog::server::logpath') -%>messages"
+<% if @do_locals -%>
+$Template dynLocal1,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%source:R,ERE,1,DFLT:([A-Za-z-]*)--end%<%= scope.lookupvar('rsyslog::server::logpath') -%>local0"
+$Template dynLocal1,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%source:R,ERE,1,DFLT:([A-Za-z-]*)--end%<%= scope.lookupvar('rsyslog::server::logpath') -%>local1"
+$Template dynLocal2,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%source:R,ERE,1,DFLT:([A-Za-z-]*)--end%<%= scope.lookupvar('rsyslog::server::logpath') -%>local2"
+$Template dynLocal3,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%source:R,ERE,1,DFLT:([A-Za-z-]*)--end%<%= scope.lookupvar('rsyslog::server::logpath') -%>local3"
+$Template dynLocal4,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%source:R,ERE,1,DFLT:([A-Za-z-]*)--end%<%= scope.lookupvar('rsyslog::server::logpath') -%>local4"
+$Template dynLocal5,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%source:R,ERE,1,DFLT:([A-Za-z-]*)--end%<%= scope.lookupvar('rsyslog::server::logpath') -%>local5"
+$Template dynLocal6,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%source:R,ERE,1,DFLT:([A-Za-z-]*)--end%<%= scope.lookupvar('rsyslog::server::logpath') -%>local6"
+$Template dynLocal7,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%source:R,ERE,1,DFLT:([A-Za-z-]*)--end%<%= scope.lookupvar('rsyslog::server::logpath') -%>local7"
+<% end -%>
 
 # Rules
 auth,authpriv.*         ?dynAuthLog
@@ -28,6 +38,16 @@ daemon.*            -?dynDaemonLog
 kern.*              -?dynKernLog
 mail.*              -?dynMailLog
 user.*              -?dynUserLog
+<% if @do_locals -%>
+local0.*            -?dynLocal1
+local1.*            -?dynLocal1
+local2.*            -?dynLocal2
+local3.*            -?dynLocal3
+local4.*            -?dynLocal4
+local5.*            -?dynLocal5
+local6.*            -?dynLocal6
+local7.*            -?dynLocal7
+<% end -%>
 *.=info;*.=notice;*.=warn;\
     auth.none,authpriv.none;\
     cron.none,daemon.none;\
